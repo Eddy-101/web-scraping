@@ -1,0 +1,31 @@
+{% extends "./base.html" %}
+
+{% block title %}
+   Create Product 
+{% endblock %}
+
+{% block content %}
+    <h1>Create Product</h1>
+    <form method="POST" class="row form">
+        {% %}
+        <label class="col-12 col-lg-6 mb-4">
+            <span class="form-label">Titulo:</span>
+            <input class="form-control" type="text" name="title">
+        </label>
+        <label class="col-12 col-lg-6 mb-4">
+            <span class="form-label">Autor:</span>
+            <input type="text" class="form-control" name="author">
+        </label>
+        <label class="col-12 col-lg-6 mb-4">
+            <span class="form-label">Categoria:</span>
+            <input type="text" class="form-control" name="category">
+        </label>
+        <label class="col-12 col-lg-6">
+            <span class="input-group-text">Upload</span>
+            <input type="file" name="image" class="form-control"/>
+        </label>
+        <div>
+            <button type="submit" class="btn btn-primary">Agregar +</button>
+        </div>
+    </form>
+{% endblock %}

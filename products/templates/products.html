@@ -1,0 +1,75 @@
+{% extends "./base.html" %}
+
+{% block title %}
+    Products
+{% endblock %}
+
+{% block content %}
+    <div class="d-flex flex-column justify-content-between">
+        <h1 class="mb-3">Buscador de Productos</h1>
+        <div class="mb-5 d-flex align-items-center justify-content-between">
+            <form method="POST" class="d-flex">
+                {% csrf_token %}
+                <div class="form-group mr-2">
+                    <input type="text" name="word" class="form-control"/>
+                </div>
+                <select class="form-control w-auto mx-2" name="filter">
+                    <option value="">...</option>
+                    <option value="ebay">Ebay</option>
+                    <option value="mercado_libre">Mercado Libre</option>
+                </select>
+                <select class="form-control w-auto mx-2 ml-0" name="items">
+                    <option value="">...</option>
+                    <option value="2">2 Items</option>
+                    <option value="3">3 Items</option>
+                    <option value="4">4 Items</option>
+                </select>
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+        </div>
+    </div>
+    <div>
+        {% if not products_ebay and not products_mercadolibre %}
+            <div>No Se encontraron Productos Disponibles!</div>
+        {% endif %}
+        <div class="mb-5">
+            <h2 class="mb-4">Productos  - Ebay ({{word}})</h2>
+            <div class="card-group">
+
+                {% for product in products_ebay %}
+                    <div class="card border-dark">
+                        <img class="card-img-top" height="250" style="object-fit: contain;" src="{{product.image}}" alt="Card image cap" lazy>
+                        <div class="card-body" h-50>
+                            <h5 class="card-title">{{product.title}}</h5>
+                            <p class="card-text">{{product.price}}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+
+                {% if not products_ebay %}
+                    <div class="col-12">No Se Encontraron Productos en Ebay</div>
+                {% endif %}
+
+            </div>
+        </div>
+
+        <h2 class="mb-4">Productos - Mercado Libre ({{word}})</h2>
+        <div class="card-group">
+
+            {% for product in products_mercadolibre %}
+                <div class="card border-dark">
+                    <img class="card-img-top" height="250" style="object-fit: contain;" src="{{product.image}}" alt="Card image cap" lazy>
+                    <div class="card-body">
+                        <h5 class="card-title">{{product.title}}</h5>
+                        <p class="card-text">{{product.price}}</p>
+                    </div>
+                </div>
+            {% endfor %}
+
+            {% if not products_mercadolibre %}
+                <div class="col-12">No Se Encontraron Productos en Mercado Libre</div>
+            {% endif %}
+
+        </div>
+    </div>
+{% endblock %}
